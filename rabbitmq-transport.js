@@ -32,7 +32,7 @@ module.exports = function (options) {
     var type = args.type
     var listen_options = seneca.util.clean(_.extend({}, options[type], args))
 
-    Amqp.connect('amqp://' + options.rabbitmq.host, function (error, connection) {
+    Amqp.connect('amqp://'  + options.rabbitmq.username + ':' + options.rabbitmq.password + '@' + options.rabbitmq.host, function (error, connection) {
       if (error) return done(error)
 
       connection.createChannel(function (error, channel) {
@@ -86,7 +86,7 @@ module.exports = function (options) {
     var type = args.type
     var client_options = seneca.util.clean(_.extend({}, options[type], args))
 
-    Amqp.connect('amqp://' + options.rabbitmq.host, function (err, connection) {
+    Amqp.connect('amqp://'  + options.rabbitmq.username + ':' + options.rabbitmq.password + '@' + options.rabbitmq.host, function (err, connection) {
       if (err) return client_done(err)
 
       connection.createChannel(function (err, channel) {
